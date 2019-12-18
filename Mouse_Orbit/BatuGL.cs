@@ -3,7 +3,7 @@
   * @file    BatuGL.cs
   * @author  Ali Batuhan KINDAN
   * @date    19.12.2019
-  * @brief   This file contains the moethods for opengl graphics features
+  * @brief   This file contains the methods for opengl graphics features
   ******************************************************************************
   */
 
