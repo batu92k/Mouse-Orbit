@@ -55,22 +55,7 @@ namespace Mouse_Orbit
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            GL.ClearColor(Color.Black);
-            GL_Monitor.VSync = false;
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-
-            GL.ClearColor(Color.Black);
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadIdentity();
-            GL.Viewport(GL_Monitor.Size);
-            GL.Ortho(-GL_Monitor.Width / 2, GL_Monitor.Width / 2, -GL_Monitor.Height / 2, GL_Monitor.Height / 2, 20000, -20000);
-
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            GL.ClearDepth(1.0f);
-            GL.Enable(EnableCap.DepthTest);
-            GL.DepthFunc(DepthFunction.Lequal);
+            BatuGL.Configure(GL_Monitor);
         }
 
         private void GL_Monitor_Paint(object sender, PaintEventArgs e)
@@ -78,20 +63,7 @@ namespace Mouse_Orbit
             if (!monitorLoaded)
                 return;
 
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-
-            GL.ClearColor(Color.Black);
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadIdentity();
-            GL.Viewport(GL_Monitor.Size);
-            GL.Ortho(-GL_Monitor.Width / 2, GL_Monitor.Width / 2, -GL_Monitor.Height / 2, GL_Monitor.Height / 2, 20000, -20000);
-
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            GL.ClearDepth(1.0f);
-            GL.Enable(EnableCap.DepthTest);
-            GL.DepthFunc(DepthFunction.Lequal);
+            BatuGL.Configure(GL_Monitor);
 
             GL_Monitor.SwapBuffers();
         }
