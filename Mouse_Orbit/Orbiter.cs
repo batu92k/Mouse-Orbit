@@ -92,5 +92,25 @@ namespace Mouse_Orbit
             qN.qz /= R;
         }
 
+        /**
+          * @brief  This function is using to multiply quaternions (Hamilton Product)
+          * @param  q1
+          * @param  q2
+          * @retval Quaternion
+          */
+        private Quaternion Quat_Multiply(Quaternion q1, Quaternion q2)
+        {
+            Quaternion q3 = new Quaternion
+            {
+                /* Hamilton Product Assemble Routine */
+                qw = (q1.qw * q2.qw - q1.qx * q2.qx - q1.qy * q2.qy - q1.qz * q2.qz),
+                qx = (q1.qw * q2.qx + q1.qx * q2.qw + q1.qy * q2.qz - q1.qz * q2.qy),
+                qy = (q1.qw * q2.qy - q1.qx * q2.qz + q1.qy * q2.qw + q1.qz * q2.qx),
+                qz = (q1.qw * q2.qz + q1.qx * q2.qy - q1.qy * q2.qx + q1.qz * q2.qw)
+            };
+
+            return q3;
+        }
+
     }
 }
