@@ -3,8 +3,8 @@
   * @file    Orbiter.cs
   * @author  Ali Batuhan KINDAN
   * @date    20.12.2019
-  * @brief   This file contains the classes amd methods for handling the mouse
-  *          orbit, mouse pan and mouse zoom calculations
+  * @brief   This file contains the classes amd methods for handling the Mouse
+  *          Orbit, Mouse Pan and Mouse Zoom calculations
   ******************************************************************************
   */
 
@@ -31,6 +31,17 @@ namespace Mouse_Orbit
 
     public class Orbiter
     {
+        private struct quaternion
+        {
+            public float qw, qx, qy, qz;
+            public quaternion(float w = 1, float x = 0, float y = 0, float z = 0)
+            {
+                qw = w;
+                qx = x;
+                qy = y;
+                qz = z;
+            }
+        }
 
     }
 }
