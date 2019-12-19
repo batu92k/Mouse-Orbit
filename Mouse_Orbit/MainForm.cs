@@ -41,6 +41,7 @@ namespace Mouse_Orbit
     public partial class MainForm : Form
     {
         bool monitorLoaded = false;
+        int i = 0;
 
         public MainForm()
         {
@@ -65,6 +66,12 @@ namespace Mouse_Orbit
                 return;
 
             BatuGL.Configure(GL_Monitor);
+            /* lets rotate the cube for now */
+            GL.Rotate(i, 1, 0, 0);
+            GL.Rotate(i / 2, 0, 0, 1);
+            i += 5;
+            i %= 360;
+            BatuGL.DrawCube(200);
 
             GL_Monitor.SwapBuffers();
         }
