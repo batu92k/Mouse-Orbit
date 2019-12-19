@@ -75,5 +75,22 @@ namespace Mouse_Orbit
             return q;
         }
 
+        /**
+          * @brief  This function is using to normalize quaternions
+          *         We need to normaize the quaternions before the multiplication
+          *         they must be unit quaternions
+          * @param  qN
+          * @retval none
+          */
+        private void Quat_Normalize(ref Quaternion qN)
+        {
+            /* add very small value to avoid divide by zero error */
+            float R = (float)Math.Sqrt(qN.qw * qN.qw + qN.qx * qN.qx + qN.qy * qN.qy + qN.qz * qN.qz) + 0.0000001f;
+            qN.qw /= R;
+            qN.qx /= R;
+            qN.qy /= R;
+            qN.qz /= R;
+        }
+
     }
 }
