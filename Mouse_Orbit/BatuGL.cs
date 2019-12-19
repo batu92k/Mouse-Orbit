@@ -56,6 +56,74 @@ namespace Mouse_Orbit
             GL.ClearDepth(1.0f);
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Lequal);
+
+            GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+            GL.Enable(EnableCap.LineSmooth);
+            GL.Hint(HintTarget.LineSmoothHint, HintMode.Nicest);
+            GL.Enable(EnableCap.PolygonSmooth);
+            GL.Hint(HintTarget.PolygonSmoothHint, HintMode.Nicest);
+        }
+
+        /**
+          * @brief  This function draws a cube around the origin with given size
+          * @param  size
+          * @retval none
+          */
+        public static void DrawCube(int size)
+        {
+            /* draw unit cube then scale it with given size */
+            GL.PushMatrix();
+            GL.Scale(size, size, size);
+
+            GL.Begin(PrimitiveType.Quads);
+            GL.Color3(Color.Crimson);
+            GL.Vertex3(0.5f, 0.5f, -0.5f);
+            GL.Vertex3(-0.5f, 0.5f, -0.5f);
+            GL.Vertex3(-0.5f, -0.5f, -0.5f);
+            GL.Vertex3(0.5f, -0.5f, -0.5f);
+            GL.End();
+
+            GL.Begin(PrimitiveType.Quads);
+            GL.Color3(Color.Crimson);
+            GL.Vertex3(0.5f, 0.5f, 0.5f);
+            GL.Vertex3(-0.5f, 0.5f, 0.5f);
+            GL.Vertex3(-0.5f, -0.5f, 0.5f);
+            GL.Vertex3(0.5f, -0.5f, 0.5f);
+            GL.End();
+
+            GL.Begin(PrimitiveType.Quads);
+            GL.Color3(Color.SteelBlue);
+            GL.Vertex3(0.5f, 0.5f, 0.5f);
+            GL.Vertex3(0.5f, -0.5f, 0.5f);
+            GL.Vertex3(0.5f, -0.5f, -0.5f);
+            GL.Vertex3(0.5f, 0.5f, -0.5f);
+            GL.End();
+
+            GL.Begin(PrimitiveType.Quads);
+            GL.Color3(Color.SteelBlue);
+            GL.Vertex3(-0.5f, 0.5f, 0.5f);
+            GL.Vertex3(-0.5f, -0.5f, 0.5f);
+            GL.Vertex3(-0.5f, -0.5f, -0.5f);
+            GL.Vertex3(-0.5f, 0.5f, -0.5f);
+            GL.End();
+
+            GL.Begin(PrimitiveType.Quads);
+            GL.Color3(Color.Purple);
+            GL.Vertex3(0.5f, 0.5f, 0.5f);
+            GL.Vertex3(-0.5f, 0.5f, 0.5f);
+            GL.Vertex3(-0.5f, 0.5f, -0.5f);
+            GL.Vertex3(0.5f, 0.5f, -0.5f);
+            GL.End();
+
+            GL.Begin(PrimitiveType.Quads);
+            GL.Color3(Color.Purple);
+            GL.Vertex3(0.5f, -0.5f, 0.5f);
+            GL.Vertex3(-0.5f, -0.5f, 0.5f);
+            GL.Vertex3(-0.5f, -0.5f, -0.5f);
+            GL.Vertex3(0.5f, -0.5f, -0.5f);
+            GL.End();
+
+            GL.PopMatrix();
         }
 
 
