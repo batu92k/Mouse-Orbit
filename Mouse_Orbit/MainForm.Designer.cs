@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.GL_Monitor = new OpenTK.GLControl();
+            this.DrawTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // GL_Monitor
@@ -43,6 +45,11 @@
             this.GL_Monitor.VSync = false;
             this.GL_Monitor.Load += new System.EventHandler(this.GL_Monitor_Load);
             this.GL_Monitor.Paint += new System.Windows.Forms.PaintEventHandler(this.GL_Monitor_Paint);
+            // 
+            // DrawTimer
+            // 
+            this.DrawTimer.Interval = 20;
+            this.DrawTimer.Tick += new System.EventHandler(this.DrawTimer_Tick);
             // 
             // MainForm
             // 
@@ -61,6 +68,7 @@
         #endregion
 
         private OpenTK.GLControl GL_Monitor;
+        private System.Windows.Forms.Timer DrawTimer;
     }
 }
 

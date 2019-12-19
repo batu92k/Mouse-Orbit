@@ -51,6 +51,7 @@ namespace Mouse_Orbit
         {
             monitorLoaded = true;
             GL.ClearColor(Color.Black);
+            DrawTimer.Enabled = true;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -66,6 +67,11 @@ namespace Mouse_Orbit
             BatuGL.Configure(GL_Monitor);
 
             GL_Monitor.SwapBuffers();
+        }
+
+        private void DrawTimer_Tick(object sender, EventArgs e)
+        {
+            GL_Monitor.Invalidate();
         }
     }
 }
