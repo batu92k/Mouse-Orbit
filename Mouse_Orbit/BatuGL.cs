@@ -84,7 +84,7 @@ namespace Mouse_Orbit
             GL.End();
 
             GL.Begin(PrimitiveType.Quads);
-            GL.Color3(Color.Crimson);
+            GL.Color3(Color.Yellow);
             GL.Vertex3(0.5f, 0.5f, 0.5f);
             GL.Vertex3(-0.5f, 0.5f, 0.5f);
             GL.Vertex3(-0.5f, -0.5f, 0.5f);
@@ -92,7 +92,7 @@ namespace Mouse_Orbit
             GL.End();
 
             GL.Begin(PrimitiveType.Quads);
-            GL.Color3(Color.SteelBlue);
+            GL.Color3(Color.DarkOrange);
             GL.Vertex3(0.5f, 0.5f, 0.5f);
             GL.Vertex3(0.5f, -0.5f, 0.5f);
             GL.Vertex3(0.5f, -0.5f, -0.5f);
@@ -100,7 +100,7 @@ namespace Mouse_Orbit
             GL.End();
 
             GL.Begin(PrimitiveType.Quads);
-            GL.Color3(Color.SteelBlue);
+            GL.Color3(Color.BlueViolet);
             GL.Vertex3(-0.5f, 0.5f, 0.5f);
             GL.Vertex3(-0.5f, -0.5f, 0.5f);
             GL.Vertex3(-0.5f, -0.5f, -0.5f);
@@ -116,7 +116,7 @@ namespace Mouse_Orbit
             GL.End();
 
             GL.Begin(PrimitiveType.Quads);
-            GL.Color3(Color.Purple);
+            GL.Color3(Color.LightSeaGreen);
             GL.Vertex3(0.5f, -0.5f, 0.5f);
             GL.Vertex3(-0.5f, -0.5f, 0.5f);
             GL.Vertex3(-0.5f, -0.5f, -0.5f);
