@@ -46,7 +46,7 @@ namespace Mouse_Orbit
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-            GL.ClearColor(Color.Black);
+            GL.ClearColor(Color.Gray);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             GL.Viewport(refGLControl.Size);
