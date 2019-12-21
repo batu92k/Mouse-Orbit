@@ -42,6 +42,7 @@ namespace Mouse_Orbit
         Quaternion qGlobal_E = new Quaternion(1, 0, 0, 0);
         Quaternion qGlobal = new Quaternion(1, 0, 0, 0);
         Vector3 vdMouse = new Vector3(0, 0, 0);
+        float ortbitSensitivity = 0.2f; /* set initial mouse sensitivity (btw 0 - 1) for orbit to 0.2 */
 
         public struct Orbit
         {
@@ -167,8 +168,8 @@ namespace Mouse_Orbit
                    in order to assemble the rotation shaft. to rotate 90 degrees CCW we
                    need to multiply coordinate values with "i". if v = x + yi , v' = i * v 
                    so v' = -y + xi which is the rotated vector.*/
-                vdMouse.vx = -difY;
-                vdMouse.vy = difX;
+                vdMouse.vx = -difY * ortbitSensitivity;
+                vdMouse.vy = difX * ortbitSensitivity;
                 vdMouse.vz = 0;
 
                 float dTheta = -(float)Math.Sqrt(vdMouse.vx * vdMouse.vx + vdMouse.vy * vdMouse.vy);
@@ -180,6 +181,38 @@ namespace Mouse_Orbit
             }
 
             return new Orbit((float)(2 * Math.Acos(qGlobal.qw) * rad2Deg), qGlobal.qx, qGlobal.qy, qGlobal.qz);
+        }
+
+        /**
+          * @brief  Setter function for orbit mouse sensitivity. Parameter must 
+          *         be between 1 and 0.
+          * @param  val
+          * @retval none
+          */
+        void Set_Orbit_Sensitivity(float val)
+        {
+            if(val < 0)
+            {
+                ortbitSensitivity = 0;
+            }
+            else if(val > 1.0f)
+            {
+                ortbitSensitivity = 1.0f;
+            }
+            else
+            {
+                ortbitSensitivity = val;
+            }
+        }
+
+        /**
+          * @brief  Getter function for orbit mouse sensitivity.
+          * @param  none
+          * @retval ortbitSensitivity
+          */
+        float Get_Orbit_Sensitivity()
+        {
+            return ortbitSensitivity;
         }
 
     }
