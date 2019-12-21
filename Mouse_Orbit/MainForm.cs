@@ -41,7 +41,9 @@ namespace Mouse_Orbit
     public partial class MainForm : Form
     {
         bool monitorLoaded = false;
-        int i = 0;
+        Orbiter orb = new Orbiter();
+        Orbiter.Orbit orbitStr;
+        bool enableOrbit = false;
 
         public MainForm()
         {
@@ -66,19 +68,26 @@ namespace Mouse_Orbit
                 return;
 
             BatuGL.Configure(GL_Monitor);
-            /* lets rotate the cube for now */
-            GL.Rotate(i, 1, 0, 0);
-            GL.Rotate(i / 2, 0, 0, 1);
-            i += 5;
-            i %= 360;
+            GL.Rotate(orbitStr.angle, orbitStr.ox, orbitStr.oy, orbitStr.oz);
             BatuGL.DrawCube(200);
-
             GL_Monitor.SwapBuffers();
         }
 
         private void DrawTimer_Tick(object sender, EventArgs e)
         {
+            orb.Update_Coordinates(MousePosition.X, MousePosition.Y);
+            if(enableOrbit) orbitStr = orb.Get_Orbit();
             GL_Monitor.Invalidate();
+        }
+
+        private void GL_Monitor_MouseDown(object sender, MouseEventArgs e)
+        {
+            enableOrbit = (e.Button == MouseButtons.Right);
+        }
+
+        private void GL_Monitor_MouseUp(object sender, MouseEventArgs e)
+        {
+            enableOrbit = (e.Button == MouseButtons.Right) ? false : enableOrbit;
         }
     }
 }
