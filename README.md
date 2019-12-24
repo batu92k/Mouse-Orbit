@@ -1,8 +1,9 @@
 # Mouse Orbit
-This application performs quaternion based mouse orbit algorithm to rotate 3D objects similar like in the CAD programs.
-
-**Mouse Pan** and **Mouse Wheel Zoom** features will be added soon...
+This application performs **Mouse Orbit** (**quaternion based**), **Mouse Pan** and **Mouse Zoom** features to rotate, scale and move 3D objects similar like in the CAD programs.
 
 ## How to Use
+A cube is drawn on the screen to visualize the features of the application. You can perform the mentioned features by following:
  * Hold right mouse button and move the mouse to rotate the Cube
+ * Hold left mouse button and move the mouse to move the Cube
+ * Use mouse wheel to scale the Cube
  
