@@ -46,11 +46,14 @@ namespace Mouse_Orbit
         Orbiter orb = new Orbiter();
         Orbiter.Orbit orbitStr;
         bool enableOrbit = false;
+        bool enablePan = false;
         float scaleVal = 1.0f; /* initial scale value for the opengl drawing */
         int mouseX_Old = 0;
         int mouseY_Old = 0;
         int difX = 0;
         int difY = 0;
+        int PanX = 0;
+        int PanY = 0;
 
         public MainForm()
         {
@@ -76,6 +79,7 @@ namespace Mouse_Orbit
                 return;
 
             BatuGL.Configure(GL_Monitor);
+            GL.Translate(PanX, PanY, 0);
             GL.Scale(scaleVal, scaleVal, scaleVal);
             GL.Rotate(orbitStr.angle, orbitStr.ox, orbitStr.oy, orbitStr.oz);
             BatuGL.DrawCube(200);
@@ -88,18 +92,28 @@ namespace Mouse_Orbit
             difY = -(MousePosition.Y - mouseY_Old); /* set origin point to bottom left from top left */
             mouseX_Old = MousePosition.X;
             mouseY_Old = MousePosition.Y;
-            if (enableOrbit) orbitStr = orb.Get_Orbit(difX, difY);
+            if (enableOrbit)
+            {
+                orbitStr = orb.Get_Orbit(difX, difY);
+            }
+            else if (enablePan)
+            {
+                PanX += difX;
+                PanY += difY;
+            }
             GL_Monitor.Invalidate();
         }
 
         private void GL_Monitor_MouseDown(object sender, MouseEventArgs e)
         {
             enableOrbit = (e.Button == MouseButtons.Right);
+            enablePan = (e.Button == MouseButtons.Left);
         }
 
         private void GL_Monitor_MouseUp(object sender, MouseEventArgs e)
         {
             enableOrbit = (e.Button == MouseButtons.Right) ? false : enableOrbit;
+            enablePan = (e.Button == MouseButtons.Left) ? false : enablePan;
         }
 
         private void GL_Monitor_MouseWheel(object sender, MouseEventArgs e)
