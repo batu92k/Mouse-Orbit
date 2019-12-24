@@ -3,7 +3,9 @@
   * @file    MainForm.cs
   * @author  Ali Batuhan KINDAN
   * @date    17.12.2019
-  * @brief   This program performs the quaternion based mouse orbit algorithm
+  * @brief   This program performs the quaternion based mouse orbit algorithm. The
+  *          app is the re-make of my older mouse orbit implementation that I made 
+  *          in 2017 with an older OpenGL API (Tao Framework).
   ******************************************************************************
   */
 
@@ -44,10 +46,12 @@ namespace Mouse_Orbit
         Orbiter orb = new Orbiter();
         Orbiter.Orbit orbitStr;
         bool enableOrbit = false;
+        float scaleVal = 1.0f; /* initial scale value for the opengl drawing */
 
         public MainForm()
         {
             InitializeComponent();
+            GL_Monitor.MouseWheel += GL_Monitor_MouseWheel;
         }
 
         private void GL_Monitor_Load(object sender, EventArgs e)
@@ -68,6 +72,7 @@ namespace Mouse_Orbit
                 return;
 
             BatuGL.Configure(GL_Monitor);
+            GL.Scale(scaleVal, scaleVal, scaleVal);
             GL.Rotate(orbitStr.angle, orbitStr.ox, orbitStr.oy, orbitStr.oz);
             BatuGL.DrawCube(200);
             GL_Monitor.SwapBuffers();
@@ -88,6 +93,13 @@ namespace Mouse_Orbit
         private void GL_Monitor_MouseUp(object sender, MouseEventArgs e)
         {
             enableOrbit = (e.Button == MouseButtons.Right) ? false : enableOrbit;
+        }
+
+        private void GL_Monitor_MouseWheel(object sender, MouseEventArgs e)
+        {
+            scaleVal += (e.Delta > 0) ? 0.1f : -0.1f;
+            if (scaleVal < 0.1f) scaleVal = 0.1f;
+            else if (scaleVal > 5.0f) scaleVal = 5.0f;
         }
     }
 }
