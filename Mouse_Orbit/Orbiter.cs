@@ -3,8 +3,8 @@
   * @file    Orbiter.cs
   * @author  Ali Batuhan KINDAN
   * @date    20.12.2019
-  * @brief   This file contains the classes amd methods for handling the Mouse
-  *          Orbit, Mouse Pan and Mouse Zoom calculations
+  * @brief   This file contains the classes and methods for handling the Mouse
+  *          Orbit calculation.
   ******************************************************************************
   */
 
