@@ -34,10 +34,6 @@ namespace Mouse_Orbit
     {
         const double deg2Rad = Math.PI / 180.0;
         const double rad2Deg = 180.0 / Math.PI;
-        int mouseX_Old = 0;
-        int mouseY_Old = 0;
-        int difX = 0;
-        int difY = 0;
         Quaternion qdMouse = new Quaternion(1, 0, 0, 0);
         Quaternion qGlobal_E = new Quaternion(1, 0, 0, 0);
         Quaternion qGlobal = new Quaternion(1, 0, 0, 0);
@@ -137,39 +133,22 @@ namespace Mouse_Orbit
         }
 
         /**
-          * @brief  This function is using for calculate the derivative of mouse coordinates.
-          *         Calculated derivative values are using in the orbit and pan features.
-          *         This function needs to be called periodically inside a timer or thread 
-          *         to make orbit and pan features work.
-          * @param  mouseX
-          * @param  mouseY
-          * @retval none
-          */
-        public void Update_Coordinates(int mouseX, int mouseY)
-        {
-            difX = mouseX - mouseX_Old;
-            difY = -(mouseY - mouseY_Old);
-            mouseX_Old = mouseX;
-            mouseY_Old = mouseY;
-        }
-
-        /**
           * @brief  This function is using to calculate current raotation quaternion from
           *         mouse coordinates that are updated from Update_Coordinates function.
           * @param  mouseX
           * @param  mouseY
           * @retval Quaternion
           */
-        public Orbit Get_Orbit()
+        public Orbit Get_Orbit(int mouseDifX, int mouseDifY)
         {
-            if(difX != 0 || difY != 0)
+            if(mouseDifX != 0 || mouseDifY != 0)
             {
                 /* rotate mouse derivative vector 90 degrees and assign to mouse vector 
                    in order to assemble the rotation shaft. to rotate 90 degrees CCW we
                    need to multiply coordinate values with "i". if v = x + yi , v' = i * v 
                    so v' = -y + xi which is the rotated vector.*/
-                vdMouse.vx = -difY * ortbitSensitivity;
-                vdMouse.vy = difX * ortbitSensitivity;
+                vdMouse.vx = -mouseDifY * ortbitSensitivity;
+                vdMouse.vy = mouseDifX * ortbitSensitivity;
                 vdMouse.vz = 0;
 
                 float dTheta = -(float)Math.Sqrt(vdMouse.vx * vdMouse.vx + vdMouse.vy * vdMouse.vy);

@@ -47,6 +47,10 @@ namespace Mouse_Orbit
         Orbiter.Orbit orbitStr;
         bool enableOrbit = false;
         float scaleVal = 1.0f; /* initial scale value for the opengl drawing */
+        int mouseX_Old = 0;
+        int mouseY_Old = 0;
+        int difX = 0;
+        int difY = 0;
 
         public MainForm()
         {
@@ -80,8 +84,11 @@ namespace Mouse_Orbit
 
         private void DrawTimer_Tick(object sender, EventArgs e)
         {
-            orb.Update_Coordinates(MousePosition.X, MousePosition.Y);
-            if(enableOrbit) orbitStr = orb.Get_Orbit();
+            difX = MousePosition.X - mouseX_Old;
+            difY = -(MousePosition.Y - mouseY_Old); /* set origin point to bottom left from top left */
+            mouseX_Old = MousePosition.X;
+            mouseY_Old = MousePosition.Y;
+            if (enableOrbit) orbitStr = orb.Get_Orbit(difX, difY);
             GL_Monitor.Invalidate();
         }
 
