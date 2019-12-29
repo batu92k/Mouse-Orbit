@@ -176,6 +176,19 @@ namespace Mouse_Orbit
         }
 
         /**
+          * @brief  This function resets the current orientation to the default
+          * @param  none
+          * @retval none
+          */
+        public void Reset_Orientation()
+        {
+            qdMouse.Reset();
+            qGlobal_E.Reset();
+            qGlobal.Reset();
+            vdMouse.Reset();
+        }
+
+        /**
           * @brief  Setter function for orbit mouse sensitivity. Parameter must 
           *         be between 1 and 0.
           * @param  val

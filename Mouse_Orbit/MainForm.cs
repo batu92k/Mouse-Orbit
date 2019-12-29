@@ -122,5 +122,18 @@ namespace Mouse_Orbit
             if (scaleVal < 0.1f) scaleVal = 0.1f;
             else if (scaleVal > 5.0f) scaleVal = 5.0f;
         }
+
+        private void GL_Monitor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == 'r')
+            {
+                /* reset Orbit Pan and Scale to default values */
+                orb.Reset_Orientation();
+                orbitStr = orb.Get_Orbit(0, 0);
+                PanX = 0;
+                PanY = 0;
+                scaleVal = 1.0f;
+            }
+        }
     }
 }
