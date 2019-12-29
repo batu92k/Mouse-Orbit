@@ -6,4 +6,5 @@ A Cube is drawn on the screen to visualize the features of the application. You 
  * Hold right mouse button and move the mouse to rotate the Cube
  * Hold left mouse button and move the mouse to move the Cube
  * Use mouse wheel to scale the Cube
+ * Press "R" to reset view
  
