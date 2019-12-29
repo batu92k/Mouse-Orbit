@@ -55,6 +55,13 @@ namespace Mouse_Orbit
         private struct Quaternion
         {
             public float qw, qx, qy, qz;
+            public void Reset()
+            {
+                qw = 1;
+                qx = 0;
+                qy = 0;
+                qz = 0;
+            }
             public Quaternion(float w = 1, float x = 0, float y = 0, float z = 0)
             {
                 qw = w;
@@ -67,7 +74,13 @@ namespace Mouse_Orbit
         private struct Vector3
         {
             public float vx, vy, vz;
-            public Vector3(float x = 1, float y = 1, float z = 1)
+            public void Reset()
+            {
+                vx = 0;
+                vy = 0;
+                vz = 0;
+            }
+            public Vector3(float x = 0, float y = 0, float z = 0)
             {
                 vx = x;
                 vy = y;
