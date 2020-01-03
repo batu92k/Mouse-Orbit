@@ -43,22 +43,16 @@ namespace Mouse_Orbit
     public partial class MainForm : Form
     {
         bool monitorLoaded = false;
-        Orbiter orb = new Orbiter();
-        Orbiter.Orbit orbitStr;
-        bool enableOrbit = false;
-        bool enablePan = false;
-        float scaleVal = 1.0f; /* initial scale value for the opengl drawing */
-        int mouseX_Old = 0;
-        int mouseY_Old = 0;
-        int difX = 0;
-        int difY = 0;
-        int PanX = 0;
-        int PanY = 0;
+        Orbiter orb;
 
         public MainForm()
         {
             InitializeComponent();
-            GL_Monitor.MouseWheel += GL_Monitor_MouseWheel;
+            orb = new Orbiter();
+            GL_Monitor.MouseDown += orb.Control_MouseDownEvent;
+            GL_Monitor.MouseUp += orb.Control_MouseUpEvent;
+            GL_Monitor.MouseWheel += orb.Control_MouseWheelEvent;
+            GL_Monitor.KeyPress += orb.Control_KeyPress_Event;
         }
 
         private void GL_Monitor_Load(object sender, EventArgs e)
@@ -79,61 +73,17 @@ namespace Mouse_Orbit
                 return;
 
             BatuGL.Configure(GL_Monitor);
-            GL.Translate(PanX, PanY, 0);
-            GL.Scale(scaleVal, scaleVal, scaleVal);
-            GL.Rotate(orbitStr.angle, orbitStr.ox, orbitStr.oy, orbitStr.oz);
+            GL.Translate(orb.PanX, orb.PanY, 0);
+            GL.Scale(orb.scaleVal, orb.scaleVal, orb.scaleVal);
+            GL.Rotate(orb.orbitStr.angle, orb.orbitStr.ox, orb.orbitStr.oy, orb.orbitStr.oz);
             BatuGL.DrawCube(200);
             GL_Monitor.SwapBuffers();
         }
 
         private void DrawTimer_Tick(object sender, EventArgs e)
         {
-            difX = MousePosition.X - mouseX_Old;
-            difY = -(MousePosition.Y - mouseY_Old); /* set origin point to bottom left from top left */
-            mouseX_Old = MousePosition.X;
-            mouseY_Old = MousePosition.Y;
-            if (enableOrbit)
-            {
-                orbitStr = orb.Get_Orbit(difX, difY);
-            }
-            else if (enablePan)
-            {
-                PanX += difX;
-                PanY += difY;
-            }
+            orb.UpdateOrbiter(MousePosition.X, MousePosition.Y);
             GL_Monitor.Invalidate();
-        }
-
-        private void GL_Monitor_MouseDown(object sender, MouseEventArgs e)
-        {
-            enableOrbit = (e.Button == MouseButtons.Right);
-            enablePan = (e.Button == MouseButtons.Left);
-        }
-
-        private void GL_Monitor_MouseUp(object sender, MouseEventArgs e)
-        {
-            enableOrbit = (e.Button == MouseButtons.Right) ? false : enableOrbit;
-            enablePan = (e.Button == MouseButtons.Left) ? false : enablePan;
-        }
-
-        private void GL_Monitor_MouseWheel(object sender, MouseEventArgs e)
-        {
-            scaleVal += (e.Delta > 0) ? 0.1f : -0.1f;
-            if (scaleVal < 0.1f) scaleVal = 0.1f;
-            else if (scaleVal > 5.0f) scaleVal = 5.0f;
-        }
-
-        private void GL_Monitor_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if(e.KeyChar == 'r')
-            {
-                /* reset Orbit Pan and Scale to default values */
-                orb.Reset_Orientation();
-                orbitStr = orb.Get_Orbit(0, 0);
-                PanX = 0;
-                PanY = 0;
-                scaleVal = 1.0f;
-            }
         }
     }
 }

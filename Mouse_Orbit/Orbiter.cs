@@ -26,23 +26,42 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 using System;
+using System.Windows.Forms;
 
 namespace Mouse_Orbit
 {
 
     public class Orbiter
     {
+        public float scaleVal = 1.0f; /* initial scale value for the opengl drawing */
+        public int PanX = 0;
+        public int PanY = 0;
+        public Orbit orbitStr;
+
         const double deg2Rad = Math.PI / 180.0;
         const double rad2Deg = 180.0 / Math.PI;
         Quaternion qdMouse = new Quaternion(1, 0, 0, 0);
         Quaternion qGlobal_E = new Quaternion(1, 0, 0, 0);
         Quaternion qGlobal = new Quaternion(1, 0, 0, 0);
         Vector3 vdMouse = new Vector3(0, 0, 0);
-        float ortbitSensitivity = 0.2f; /* set initial mouse sensitivity (btw 0 - 1) for orbit to 0.2 */
+        float ortbitSensitivity = 0.2f; /* set initial mouse sensitivity (btw 0 - 1) for orbit to 0.2 */   
+        bool enableOrbit = false;
+        bool enablePan = false;
+        int mouseX_Old = 0;
+        int mouseY_Old = 0;
+        int difX = 0;
+        int difY = 0;
 
         public struct Orbit
         {
             public float angle, ox, oy, oz;
+            public void Reset()
+            {
+                angle = 0;
+                ox = 0;
+                oy = 0;
+                oz = 0;
+            }
             public Orbit(float angleDeg = 0, float x = 0, float y = 0, float z = 0)
             {
                 angle = angleDeg;
@@ -186,6 +205,28 @@ namespace Mouse_Orbit
             qGlobal_E.Reset();
             qGlobal.Reset();
             vdMouse.Reset();
+            orbitStr.Reset();
+        }
+
+        /**
+          * @brief  This function resets the current Pan value to default
+          * @param  none
+          * @retval none
+          */
+        public void Reset_Pan()
+        {
+            PanX = 0;
+            PanY = 0;
+        }
+
+        /**
+          * @brief  This function resets the current Scale value to default
+          * @param  none
+          * @retval none
+          */
+        public void Reset_Scale()
+        {
+            scaleVal = 1.0f;
         }
 
         /**
@@ -218,6 +259,95 @@ namespace Mouse_Orbit
         float Get_Orbit_Sensitivity()
         {
             return ortbitSensitivity;
+        }
+
+        /**
+          * @brief  This function is using to update Pan and Orbit values.
+          *         This function needs to be called periodically during the
+          *         runtime in a timer or thread. Scale feature is working 
+          *         event based (Mouse Wheel) so its not part of this function.
+          * @param  mouseX
+          * @param  mouseY
+          * @retval none
+          */
+        public void UpdateOrbiter(int mouseX, int mouseY)
+        {
+            difX = mouseX - mouseX_Old;
+            difY = -(mouseY - mouseY_Old); /* set origin point to bottom left from top left */
+            mouseX_Old = mouseX;
+            mouseY_Old = mouseY;
+            if (enableOrbit)
+            {
+                orbitStr = Get_Orbit(difX, difY);
+            }
+            else if (enablePan)
+            {
+                PanX += difX;
+                PanY += difY;
+            }
+        }
+
+        /**
+          * @brief  This function is using to update Scale value whenever
+          *         mouse wheel event triggered on defined Control element.
+          *         This function needs to be added to selected form control
+          *         elements MouseWheel event as event function.
+          * @param  sender
+          * @param  e
+          * @retval none
+          */
+        public void Control_MouseWheelEvent(object sender, MouseEventArgs e)
+        {
+            scaleVal += (e.Delta > 0) ? 0.1f : -0.1f;
+            if (scaleVal < 0.1f) scaleVal = 0.1f;
+            else if (scaleVal > 5.0f) scaleVal = 5.0f;
+        }
+
+        /**
+          * @brief  This function is using to update Pan and Orbit enable flags.
+          *         This function needs to be added to selected form control
+          *         elements MouseDown event as event function.
+          * @param  sender
+          * @param  e
+          * @retval none
+          */
+        public void Control_MouseDownEvent(object sender, MouseEventArgs e)
+        {
+            enableOrbit = (e.Button == MouseButtons.Right);
+            enablePan = (e.Button == MouseButtons.Left);
+        }
+
+        /**
+          * @brief  This function is using to update Pan and Orbit enable flags.
+          *         This function needs to be added to selected form control
+          *         elements MouseUp event as event function.
+          * @param  sender
+          * @param  e
+          * @retval none
+          */
+        public void Control_MouseUpEvent(object sender, MouseEventArgs e)
+        {
+            enableOrbit = (e.Button == MouseButtons.Right) ? false : enableOrbit;
+            enablePan = (e.Button == MouseButtons.Left) ? false : enablePan;
+        }
+
+        /**
+          * @brief  This function is using to reset view to default when R key pressed.
+          *         This function needs to be added to selected form control
+          *         elements KeyPress event as event function.
+          * @param  sender
+          * @param  e
+          * @retval none
+          */
+        public void Control_KeyPress_Event(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 'r')
+            {
+                /* reset Orbit, Pan and Scale to default values */
+                Reset_Orientation();
+                Reset_Pan();
+                Reset_Scale();
+            }
         }
 
     }

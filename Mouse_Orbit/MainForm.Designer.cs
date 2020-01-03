@@ -45,9 +45,6 @@
             this.GL_Monitor.VSync = false;
             this.GL_Monitor.Load += new System.EventHandler(this.GL_Monitor_Load);
             this.GL_Monitor.Paint += new System.Windows.Forms.PaintEventHandler(this.GL_Monitor_Paint);
-            this.GL_Monitor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GL_Monitor_KeyPress);
-            this.GL_Monitor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GL_Monitor_MouseDown);
-            this.GL_Monitor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GL_Monitor_MouseUp);
             // 
             // DrawTimer
             // 
