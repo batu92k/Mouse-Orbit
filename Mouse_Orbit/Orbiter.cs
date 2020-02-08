@@ -195,6 +195,19 @@ namespace Mouse_Orbit
         }
 
         /**
+          * @brief  This function resets all features; orientaion, pan and zoom
+          *         So instrad of calling all of them just call this method
+          * @param  none
+          * @retval none
+          */
+        public void Reset_All()
+        {
+            Reset_Orientation();
+            Reset_Pan();
+            Reset_Scale();
+        }
+
+        /**
           * @brief  This function resets the current orientation to the default
           * @param  none
           * @retval none
@@ -344,9 +357,7 @@ namespace Mouse_Orbit
             if (e.KeyChar == 'r')
             {
                 /* reset Orbit, Pan and Scale to default values */
-                Reset_Orientation();
-                Reset_Pan();
-                Reset_Scale();
+                Reset_All();
             }
         }
 
