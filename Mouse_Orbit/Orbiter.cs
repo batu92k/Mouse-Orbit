@@ -244,15 +244,16 @@ namespace Mouse_Orbit
 
         /**
           * @brief  Setter function for orbit mouse sensitivity. Parameter must 
-          *         be between 1 and 0.
+          *         be between 1 and 100.
           * @param  val
           * @retval none
           */
-        void Set_Orbit_Sensitivity(float val)
+        public void Set_Orbit_Sensitivity(float val)
         {
-            if(val < 0)
+            val /= 100.0f;
+            if(val < 1)
             {
-                ortbitSensitivity = 0;
+                ortbitSensitivity = 0.01f;
             }
             else if(val > 1.0f)
             {
@@ -269,9 +270,9 @@ namespace Mouse_Orbit
           * @param  none
           * @retval ortbitSensitivity
           */
-        float Get_Orbit_Sensitivity()
+        public float Get_Orbit_Sensitivity()
         {
-            return ortbitSensitivity;
+            return ortbitSensitivity * 100.0f;
         }
 
         /**
@@ -312,8 +313,14 @@ namespace Mouse_Orbit
         public void Control_MouseWheelEvent(object sender, MouseEventArgs e)
         {
             scaleVal += (e.Delta > 0) ? 0.1f : -0.1f;
-            if (scaleVal < 0.1f) scaleVal = 0.1f;
-            else if (scaleVal > 5.0f) scaleVal = 5.0f;
+            if (scaleVal < 0.1f)
+            {
+                scaleVal = 0.1f;
+            }
+            else if (scaleVal > 5.0f)
+            {
+                scaleVal = 5.0f;
+            }
         }
 
         /**
