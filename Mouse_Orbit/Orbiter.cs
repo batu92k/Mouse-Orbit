@@ -33,7 +33,8 @@ namespace Mouse_Orbit
 
     public class Orbiter
     {
-        public float scaleVal = 1.0f; /* initial scale value for the opengl drawing */
+        public float scaleVal = 1.0f;
+        float maxScale = 10.0f;
         public int PanX = 0;
         public int PanY = 0;
         public Orbit orbitStr;
@@ -44,7 +45,7 @@ namespace Mouse_Orbit
         Quaternion qGlobal_E = new Quaternion(1, 0, 0, 0);
         Quaternion qGlobal = new Quaternion(1, 0, 0, 0);
         Vector3 vdMouse = new Vector3(0, 0, 0);
-        float ortbitSensitivity = 0.2f; /* set initial mouse sensitivity (btw 0 - 1) for orbit to 0.2 */   
+        float ortbitSensitivity = 0.2f;
         bool enableOrbit = false;
         bool enablePan = false;
         int mouseX_Old = 0;
@@ -243,6 +244,26 @@ namespace Mouse_Orbit
         }
 
         /**
+          * @brief  This function gets the scale limit
+          * @param  maxScale
+          * @retval none
+          */
+        public float Get_Max_Scale()
+        {
+            return maxScale;
+        }
+
+        /**
+          * @brief  This function sets the scale limit
+          * @param  value
+          * @retval none
+          */
+        public void Set_Max_Scale(float value)
+        {
+            maxScale = value;
+        }
+
+        /**
           * @brief  Setter function for orbit mouse sensitivity. Parameter must 
           *         be between 1 and 100.
           * @param  val
@@ -317,9 +338,9 @@ namespace Mouse_Orbit
             {
                 scaleVal = 0.1f;
             }
-            else if (scaleVal > 5.0f)
+            else if (scaleVal > maxScale)
             {
-                scaleVal = 5.0f;
+                scaleVal = maxScale;
             }
         }
 
