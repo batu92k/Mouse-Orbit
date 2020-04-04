@@ -179,7 +179,10 @@ namespace Mouse_Orbit
                 /* rotate mouse derivative vector 90 degrees and assign to mouse vector 
                    in order to assemble the rotation shaft. to rotate -90 degrees CCW we
                    need to multiply coordinate values with "-i". if v = x + yi , v' = -i * v 
-                   so v' = y - xi which is the rotated vector.*/
+                   so v' = y - xi which is the rotated vector. This rotation vector calculated
+                   by assuming that we are using Orthographic Projection (GL.Ortho) with Z settings
+                   of Z-Near = negative max value and Z-Far = positive max value. If you change Ortho 
+                   config you will need to revert orbit vector by multiplying X and Y part by -1.*/
                 vdMouse.vx = mouseDifY * ortbitSensitivity;
                 vdMouse.vy = -mouseDifX * ortbitSensitivity;
                 vdMouse.vz = 0;
