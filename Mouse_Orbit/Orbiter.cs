@@ -177,11 +177,11 @@ namespace Mouse_Orbit
             if(mouseDifX != 0 || mouseDifY != 0)
             {
                 /* rotate mouse derivative vector 90 degrees and assign to mouse vector 
-                   in order to assemble the rotation shaft. to rotate 90 degrees CCW we
-                   need to multiply coordinate values with "i". if v = x + yi , v' = i * v 
-                   so v' = -y + xi which is the rotated vector.*/
-                vdMouse.vx = -mouseDifY * ortbitSensitivity;
-                vdMouse.vy = mouseDifX * ortbitSensitivity;
+                   in order to assemble the rotation shaft. to rotate -90 degrees CCW we
+                   need to multiply coordinate values with "-i". if v = x + yi , v' = -i * v 
+                   so v' = y - xi which is the rotated vector.*/
+                vdMouse.vx = mouseDifY * ortbitSensitivity;
+                vdMouse.vy = -mouseDifX * ortbitSensitivity;
                 vdMouse.vz = 0;
 
                 float dTheta = -(float)Math.Sqrt(vdMouse.vx * vdMouse.vx + vdMouse.vy * vdMouse.vy);
