@@ -50,7 +50,7 @@ namespace Mouse_Orbit
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
             GL.Viewport(refGLControl.Size);
-            GL.Ortho(-refGLControl.Width / 2, refGLControl.Width / 2, -refGLControl.Height / 2, refGLControl.Height / 2, 20000, -20000);
+            GL.Ortho(-refGLControl.Width / 2, refGLControl.Width / 2, -refGLControl.Height / 2, refGLControl.Height / 2, -20000, 20000);
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.ClearDepth(1.0f);
